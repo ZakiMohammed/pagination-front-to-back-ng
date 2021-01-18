@@ -25,7 +25,7 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   get numbers(): number[] {
-    const limit = Math.ceil(this.response.filtered / this.options.size);
+    const limit = Math.ceil((this.response && this.response.filtered) / this.options.size);
     return Array.from({ length: limit }, (_, i) => i + 1);
   }
 
