@@ -50,9 +50,15 @@ export class AppComponent implements OnInit, OnDestroy {
     this.getEmployees();
   }
 
+  size(size: number) {
+    this.options.size = size;
+    this.getEmployees();
+  }
+
   search($event: any): void {
     const text = $event.target.value;
     this.options.search = text;
+    this.options.page = 1;
     this.getEmployees();
   }
 

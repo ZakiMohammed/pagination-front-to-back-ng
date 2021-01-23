@@ -5,8 +5,23 @@
 
       <!-- controls -->
       <div class="input-group mb-3">
+
+        <!-- search -->
         <input type="text" name="search" id="search" class="form-control" placeholder="Search..."
           (keyup)="search($event)">
+
+        <!-- size -->
+        <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+          aria-expanded="false">Size: {{options.size}}</button>
+        <ul class="dropdown-menu dropdown-menu-end">
+          <li><button class="dropdown-item" type="button" (click)="size(5)">5</button></li>
+          <li><button class="dropdown-item" type="button" (click)="size(10)">10</button></li>
+          <li><button class="dropdown-item" type="button" (click)="size(20)">20</button></li>
+          <li><button class="dropdown-item" type="button" (click)="size(50)">50</button></li>
+          <li><button class="dropdown-item" type="button" (click)="size(100)">100</button></li>
+        </ul>
+
+        <!-- order by -->
         <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
           aria-expanded="false">Order</button>
         <ul class="dropdown-menu dropdown-menu-end">
@@ -34,7 +49,7 @@
       </ng-container>
 
       <!-- pager -->
-      <nav>
+      <nav *ngIf="numbers.length > 1">
         <ul class="pagination justify-content-center">
           <li id="prev" class="page-item" [ngClass]="{ 'disabled': options.page === 1 }">
             <a class="page-link" href="#" (click)="prev()">Previous</a>
