@@ -18,7 +18,6 @@ export class AppComponent implements OnInit, OnDestroy {
     size: 5
   };
   response: Response = null;
-  view: string = 'table';
 
   getEmployeesSub: Subscription;
 
@@ -89,9 +88,5 @@ export class AppComponent implements OnInit, OnDestroy {
 
   by(order: string) {
     return this.options.orderBy === order;
-  }
-
-  toggleView() {
-    this.view = this.view === 'list' ? 'table' : 'list';
   }
 }
