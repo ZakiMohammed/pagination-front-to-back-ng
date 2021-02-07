@@ -23,46 +23,44 @@
         </ul>
       </div>
 
-      <!-- views -->
-      <ng-container *ngIf="response">
-        <div class="card mb-3">
-          <div class="card-body">
-            <table class="table" style="table-layout: fixed;">
-              <thead>
-                <tr>
-                  <th (click)="order('Code')" role="button" style="width: 10%;">
-                    # <span *ngIf="by('Code')">{{ direction }}</span>
-                  </th>
-                  <th (click)="order('Name')" role="button">
-                    Name <span *ngIf="by('Name')">{{ direction }}</span>
-                  </th>
-                  <th (click)="order('Job')" role="button">
-                    Job <span *ngIf="by('Job')">{{ direction }}</span>
-                  </th>
-                  <th (click)="order('Salary')" role="button" style="width: 15%;">
-                    Salary <span *ngIf="by('Salary')">{{ direction }}</span>
-                  </th>
-                  <th (click)="order('Department')" role="button">
-                    Department <span *ngIf="by('Department')">{{ direction }}</span>
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr *ngFor="let employee of response.records">
-                  <td>{{employee.Code}}</td>
-                  <td>{{employee.Name}}</td>
-                  <td>{{employee.Job}}</td>
-                  <td>{{employee.Salary | currency:'INR'}}</td>
-                  <td>{{employee.Department}}</td>
-                </tr>
-                <tr *ngIf="!response.records.length">
-                  <td colspan="5" class="text-center p-5">No records found</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+      <!-- table -->
+      <div class="card mb-3" *ngIf="response">
+        <div class="card-body">
+          <table class="table" style="table-layout: fixed;">
+            <thead>
+              <tr>
+                <th (click)="order('Code')" role="button" style="width: 10%;">
+                  # <span *ngIf="by('Code')">{{ direction }}</span>
+                </th>
+                <th (click)="order('Name')" role="button">
+                  Name <span *ngIf="by('Name')">{{ direction }}</span>
+                </th>
+                <th (click)="order('Job')" role="button">
+                  Job <span *ngIf="by('Job')">{{ direction }}</span>
+                </th>
+                <th (click)="order('Salary')" role="button" style="width: 15%;">
+                  Salary <span *ngIf="by('Salary')">{{ direction }}</span>
+                </th>
+                <th (click)="order('Department')" role="button">
+                  Department <span *ngIf="by('Department')">{{ direction }}</span>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let employee of response.records">
+                <td>{{employee.Code}}</td>
+                <td>{{employee.Name}}</td>
+                <td>{{employee.Job}}</td>
+                <td>{{employee.Salary | currency:'INR'}}</td>
+                <td>{{employee.Department}}</td>
+              </tr>
+              <tr *ngIf="!response.records.length">
+                <td colspan="5" class="text-center p-5">No records found</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
-      </ng-container>
+      </div>
 
       <!-- pager -->
       <nav *ngIf="numbers.length > 1">
