@@ -1,6 +1,15 @@
 <div class="container my-5">
   <div class="row">
     <div class="col">
+
+      <!-- toggle views -->
+      <div class="btn-group float-end mt-2" role="group">
+        <button type="button" class="btn btn-outline-secondary" [class.active]="view === 'list'"
+          (click)="toggleView()">List</button>
+        <button type="button" class="btn btn-outline-secondary" [class.active]="view === 'table'"
+          (click)="toggleView()">Table</button>
+      </div>
+
       <h1 class="mb-4">🐠 Pagination Front to Back</h1>
 
       <!-- controls -->
@@ -23,7 +32,7 @@
 
         <!-- order by -->
         <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
-          aria-expanded="false">Order</button>
+          aria-expanded="false" *ngIf="view === 'list'">Order</button>
         <ul class="dropdown-menu dropdown-menu-end">
           <li><button class="dropdown-item" type="button" (click)="order('Name')">Name</button></li>
           <li><button class="dropdown-item" type="button" (click)="order('Salary')">Salary</button></li>
@@ -33,19 +42,66 @@
         </ul>
       </div>
 
-      <!-- list -->
+      <!-- views -->
       <ng-container *ngIf="response">
-        <div class="card mb-3" *ngFor="let employee of response.records">
-          <div class="card-body">
-            <span class="badge bg-secondary float-end">{{employee.Code}}</span>
-            <h4 class="card-title">
-              {{employee.Name}}
-            </h4>
-            <p class="card-text">
-              {{employee.Job}}, {{employee.Department}} | {{employee.Salary}}
-            </p>
+        <!-- list -->
+        <ng-container *ngIf="view === 'list'">
+          <div class="card mb-3" *ngFor="let employee of response.records">
+            <div class="card-body">
+              <span class="badge bg-secondary float-end">{{employee.Code}}</span>
+              <h4 class="card-title">
+                {{employee.Name}}
+              </h4>
+              <p class="card-text">
+                {{employee.Job}}, {{employee.Department}} | {{employee.Salary | currency:'INR'}}
+              </p>
+            </div>
           </div>
-        </div>
+          <div class="text-center p-5" *ngIf="!response.records.length">
+            No records found
+          </div>
+        </ng-container>
+
+        <!-- table -->
+        <ng-container *ngIf="view === 'table'">
+          <div class="card mb-3">
+            <div class="card-body">
+              <table class="table" style="table-layout: fixed;">
+                <thead>
+                  <tr>
+                    <th (click)="order('Code')" role="button" style="width: 10%;">
+                      # <span *ngIf="by('Code')">{{ direction }}</span>
+                    </th>
+                    <th (click)="order('Name')" role="button">
+                      Name <span *ngIf="by('Name')">{{ direction }}</span>
+                    </th>
+                    <th (click)="order('Job')" role="button">
+                      Job <span *ngIf="by('Job')">{{ direction }}</span>
+                    </th>
+                    <th (click)="order('Salary')" role="button" style="width: 15%;">
+                      Salary <span *ngIf="by('Salary')">{{ direction }}</span>
+                    </th>
+                    <th (click)="order('Department')" role="button">
+                      Department <span *ngIf="by('Department')">{{ direction }}</span>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let employee of response.records">
+                    <td>{{employee.Code}}</td>
+                    <td>{{employee.Name}}</td>
+                    <td>{{employee.Job}}</td>
+                    <td>{{employee.Salary | currency:'INR'}}</td>
+                    <td>{{employee.Department}}</td>
+                  </tr>
+                  <tr *ngIf="!response.records.length">
+                    <td colspan="5" class="text-center p-5">No records found</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </ng-container>
       </ng-container>
 
       <!-- pager -->

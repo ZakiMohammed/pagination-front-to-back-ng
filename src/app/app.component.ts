@@ -18,6 +18,7 @@ export class AppComponent implements OnInit, OnDestroy {
     size: 5
   };
   response: Response = null;
+  view: string = 'table';
 
   getEmployeesSub: Subscription;
 
@@ -27,6 +28,10 @@ export class AppComponent implements OnInit, OnDestroy {
   get numbers(): number[] {
     const limit = Math.ceil((this.response && this.response.filtered) / this.options.size);
     return Array.from({ length: limit }, (_, i) => i + 1);
+  }
+
+  get direction() {
+    return this.options.orderDir === 'ASC' ? '⬆' : '⬇';
   }
 
   ngOnInit(): void {
@@ -80,5 +85,13 @@ export class AppComponent implements OnInit, OnDestroy {
   to(page: number) {
     this.options.page = page;
     this.getEmployees();
+  }
+
+  by(order: string) {
+    return this.options.orderBy === order;
+  }
+
+  toggleView() {
+    this.view = this.view === 'list' ? 'table' : 'list';
   }
 }
