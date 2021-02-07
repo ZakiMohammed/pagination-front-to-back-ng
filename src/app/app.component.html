@@ -8,12 +8,11 @@
       <div class="input-group mb-3">
 
         <!-- search -->
-        <input type="text" name="search" id="search" class="form-control" placeholder="Search..."
-          (keyup)="search($event)">
+        <input type="text" class="form-control" placeholder="Search..." (keyup)="search($event)">
 
         <!-- size -->
-        <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
-          aria-expanded="false">Size: {{options.size}}</button>
+        <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">Size:
+          {{options.size}}</button>
         <ul class="dropdown-menu dropdown-menu-end">
           <li><button class="dropdown-item" type="button" (click)="size(5)">5</button></li>
           <li><button class="dropdown-item" type="button" (click)="size(10)">10</button></li>
@@ -62,7 +61,7 @@
         </div>
       </div>
 
-      <!-- pager -->
+      <!-- paginator -->
       <nav *ngIf="numbers.length > 1">
         <ul class="pagination justify-content-center">
           <li id="prev" class="page-item" [ngClass]="{ 'disabled': options.page === 1 }">

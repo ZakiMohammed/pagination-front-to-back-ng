@@ -56,6 +56,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   size(size: number) {
     this.options.size = size;
+    this.options.page = 1;
     this.getEmployees();
   }
 
@@ -67,18 +68,13 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   next() {
-    const exist = ((this.options.size * (this.options.page + 1)) - this.options.size) < this.response.filtered;
-    if (exist) {
-      this.options.page++;
-      this.getEmployees();
-    }
+    this.options.page++;
+    this.getEmployees();
   }
 
   prev() {
-    if (this.options.page > 1) {
-      this.options.page--;
-      this.getEmployees();
-    }
+    this.options.page--;
+    this.getEmployees();
   }
 
   to(page: number) {
